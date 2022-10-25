@@ -1,5 +1,6 @@
 ﻿using Jinritemai.Net;
 using Jinritemai.Net.Logistics;
+using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
 using Jinritemai.Net.Product;
 using Jinritemai.Net.Shop;
@@ -217,6 +218,18 @@ namespace Jinritemai.Net.Tests
             x.spu_id = 7135803288259150088;
             var r = await J.GetSpu(x);
             var result = ProductFormatNewBuild.BuildProductFormatNewByPropertyInfo(r.data.property_infos);
+        }
+        #endregion
+
+        #region Material
+        [TestMethod()]
+        public async Task UploadImageSync()
+        {
+            var x = new UploadImageSyncRequest();
+            x.url = "https://douyin-1251151800.cos.ap-nanjing.myqcloud.com/22-1.jpg";
+            x.folder_id = "71580217606828526081877";
+            x.material_name = "22-1.jpg";
+            var r = await J.UploadImageSync(x);
         }
         #endregion
     }

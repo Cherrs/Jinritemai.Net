@@ -1,4 +1,5 @@
-﻿using Jinritemai.Net.Order;
+﻿using Jinritemai.Net.Material;
+using Jinritemai.Net.Order;
 using Jinritemai.Net.Product;
 using Jinritemai.Net.Shop;
 using Jinritemai.Net.Spu;
@@ -46,6 +47,12 @@ namespace Jinritemai.Net
         public static async Task<Result<AddV2Response>> AddV2(this Jinritemai client, AddV2Request request)
         {
             return await client.GetResultAsync<AddV2Response>(request);
+        }
+        #endregion
+        #region Material
+        public static async Task<Result<UploadImageSyncResponse>> UploadImageSync(this Jinritemai client, UploadImageSyncRequest request)
+        {
+            return await client.GetResultAsync<UploadImageSyncResponse>(request);
         }
         #endregion
     }
