@@ -15,4 +15,4 @@ jobs:
     - name: Build
       run: dotnet build -c Release
     - name: Publish the package to nuget.org
-      run: dotnet nuget push Jinritemai.Net/bin/Release/*.nupkg -k ${{ secrets.NUGET_TOKEN }} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push Jinritemai.Net/bin/Release/*.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
