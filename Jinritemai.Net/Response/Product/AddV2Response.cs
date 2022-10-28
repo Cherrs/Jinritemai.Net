@@ -11,7 +11,7 @@ namespace Jinritemai.Net.Product
         public string create_time { get; set; }
         public string out_product_id { get; set; }
         public string outer_product_id { get; set; }
-        public string product_id { get; set; }
+        public long product_id { get; set; }
         public List<Sku> sku { get; set; }
     }
 
@@ -20,7 +20,7 @@ namespace Jinritemai.Net.Product
         public string code { get; set; }
         public string out_sku_id { get; set; }
         public string outer_sku_id { get; set; }
-        public string sku_id { get; set; }
+        public long sku_id { get; set; }
         public string spec_detail_id1 { get; set; }
         public string spec_detail_id2 { get; set; }
         public string spec_detail_id3 { get; set; }

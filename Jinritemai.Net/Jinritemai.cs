@@ -12,9 +12,9 @@ using System.Web;
 
 namespace Jinritemai.Net
 {
-    public class Jinritemai
+    public class JinritemaiClient
     {
-        public Jinritemai(string appkey, string secret, string url)
+        public JinritemaiClient(string appkey, string secret, string url)
         {
             if (string.IsNullOrWhiteSpace(appkey))
             {

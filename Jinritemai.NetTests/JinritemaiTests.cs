@@ -4,6 +4,7 @@ using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
 using Jinritemai.Net.Product;
 using Jinritemai.Net.Shop;
+using Jinritemai.Net.Sku;
 using Jinritemai.Net.Spu;
 using Jinritemai.Net.Tools;
 using Microsoft.Extensions.Configuration;
@@ -23,12 +24,12 @@ namespace Jinritemai.Net.Tests
     public class JinritemaiTests
     {
         private IConfiguration config;
-        private Jinritemai J;
+        private JinritemaiClient J;
 
         public JinritemaiTests()
         {
             config = new ConfigurationBuilder().AddJsonFile("my-config.json").Build();
-            J = new Jinritemai(config["appkey"], config["secret"], config["url"]);
+            J = new JinritemaiClient(config["appkey"], config["secret"], config["url"]);
         }
 
         [TestMethod()]
@@ -182,17 +183,17 @@ namespace Jinritemai.Net.Tests
             x.pic = "https://p3-aio.ecombdimg.com/obj/ecom-shop-material/njdUDUW_m_57dec559579857afc2c830210dd7fb3f_sx_579541_www600-600";
             x.description = "https://p3-aio.ecombdimg.com/obj/ecom-shop-material/njdUDUW_m_57dec559579857afc2c830210dd7fb3f_sx_579541_www600-600";
             x.reduce_type = 1;
-            x.freight_id = 0;
+            x.freight_id = 616006;
             x.mobile = "18552830263";
             x.commit = true;
-            x.specs = "图书|图书";
+            x.specs = "规格|图书";
             x.spec_prices = """
 [
   {
     "spec_detail_name1": "图书",
-    "spec_detail_name2": "图书",
+    "spec_detail_name2": "",
     "spec_detail_name3": "",
-    "stock_num": 11,
+    "stock_num": 1,
     "price": 10000,
     "code": "",
     "step_stock_num": 0,
@@ -230,6 +231,18 @@ namespace Jinritemai.Net.Tests
             x.folder_id = "71580217606828526081877";
             x.material_name = "22-1.jpg";
             var r = await J.UploadImageSync(x);
+        }
+        #endregion
+        #region Sku
+        [TestMethod()]
+        public async Task SyncStock()
+        {
+            var x = new SyncStockRequest();
+            x.product_id = 3579334473017373535;
+            x.sku_id = 1747721909965870;
+            x.stock_num = 5;
+            x.incremental = false;
+            var r = await J.SyncStock(x);
         }
         #endregion
     }
