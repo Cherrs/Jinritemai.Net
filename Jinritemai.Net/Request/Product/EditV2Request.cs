@@ -31,7 +31,7 @@ namespace Jinritemai.Net.Product
         public string presell_end_time { get; set; }
         public string supply_7day_return { get; set; }
         public string mobile { get; set; }
-        public string commit { get; set; }
+        public bool commit { get; set; }
         public string brand_id { get; set; }
         public string remark { get; set; }
         public string out_product_id { get; set; }

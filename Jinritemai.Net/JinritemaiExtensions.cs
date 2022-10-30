@@ -1,6 +1,7 @@
 ﻿using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
 using Jinritemai.Net.Product;
+using Jinritemai.Net.Request.Product;
 using Jinritemai.Net.Shop;
 using Jinritemai.Net.Sku;
 using Jinritemai.Net.Spu;
@@ -50,6 +51,10 @@ namespace Jinritemai.Net
             return await client.GetResultAsync<AddV2Response>(request);
         }
         public static async Task<Result<object>> EditV2(this JinritemaiClient client, EditV2Request request)
+        {
+            return await client.GetResultAsync<object>(request);
+        }
+        public static async Task<Result<object>> SetOffline(this JinritemaiClient client, SetOfflineRequest request)
         {
             return await client.GetResultAsync<object>(request);
         }
