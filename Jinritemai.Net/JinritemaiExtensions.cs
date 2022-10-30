@@ -49,6 +49,10 @@ namespace Jinritemai.Net
         {
             return await client.GetResultAsync<AddV2Response>(request);
         }
+        public static async Task<Result<object>> EditV2(this JinritemaiClient client, EditV2Request request)
+        {
+            return await client.GetResultAsync<object>(request);
+        }
         #endregion
         #region Material
         public static async Task<Result<UploadImageSyncResponse>> UploadImageSync(this JinritemaiClient client, UploadImageSyncRequest request)
