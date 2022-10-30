@@ -10,6 +10,6 @@ namespace Jinritemai.Net.Request.Product
     {
         public string method { get; set; } = "product.setOffline";
         public string path { get; set; } = "/product/setOffline";
-        public string product_id { get; set; }
+        public long product_id { get; set; }
     }
 }
