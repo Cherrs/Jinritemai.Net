@@ -58,6 +58,10 @@ namespace Jinritemai.Net
         {
             return await client.GetResultAsync<object>(request);
         }
+        public static async Task<Result<DetailResponse>> Detail(this JinritemaiClient client, DetailRequest request)
+        {
+            return await client.GetResultAsync<DetailResponse>(request);
+        }
         #endregion
         #region Material
         public static async Task<Result<UploadImageSyncResponse>> UploadImageSync(this JinritemaiClient client, UploadImageSyncRequest request)

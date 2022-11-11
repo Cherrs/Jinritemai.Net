@@ -211,6 +211,14 @@ namespace Jinritemai.Net.Tests
             x.delivery_delay_day = 2;
             var r = await J.AddV2(x);
         }
+
+        [TestMethod()]
+        public async Task Detail()
+        {
+            var req = new DetailRequest();
+            req.product_id = "3582109616743521364";
+            var rsp =  await J.Detail(req);
+        }
         #region Spu
         [TestMethod()]
         public async Task GetSpu()
@@ -238,8 +246,8 @@ namespace Jinritemai.Net.Tests
         public async Task SyncStock()
         {
             var x = new SyncStockRequest();
-            x.product_id = 3579334473017373535;
-            x.sku_id = 1747721909965870;
+            x.product_id = 3579337116603303875;
+            x.sku_id = 1747723195830275;
             x.stock_num = 5;
             x.incremental = false;
             var r = await J.SyncStock(x);
