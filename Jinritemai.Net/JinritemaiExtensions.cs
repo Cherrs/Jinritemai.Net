@@ -1,4 +1,5 @@
-﻿using Jinritemai.Net.Material;
+﻿using Jinritemai.Net.Iop.Order;
+using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
 using Jinritemai.Net.Product;
 using Jinritemai.Net.Request.Product;
@@ -73,6 +74,13 @@ namespace Jinritemai.Net
         public static async Task<Result<object>> SyncStock(this JinritemaiClient client, SyncStockRequest request)
         {
             return await client.GetResultAsync<object>(request);
+        }
+        #endregion
+
+        #region Iop
+        public static async Task<string> GetIopSellerOrderListAsync(this JinritemaiClient client, SellerOrderListRequest request)
+        {
+            return await client.GetJsonResultAsync(request);
         }
         #endregion
     }

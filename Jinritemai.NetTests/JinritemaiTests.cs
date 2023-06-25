@@ -1,4 +1,5 @@
 ﻿using Jinritemai.Net;
+using Jinritemai.Net.Iop.Order;
 using Jinritemai.Net.Logistics;
 using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
@@ -217,7 +218,7 @@ namespace Jinritemai.Net.Tests
         {
             var req = new DetailRequest();
             req.product_id = "3582109616743521364";
-            var rsp =  await J.Detail(req);
+            var rsp = await J.Detail(req);
         }
         #region Spu
         [TestMethod()]
@@ -251,6 +252,15 @@ namespace Jinritemai.Net.Tests
             x.stock_num = 5;
             x.incremental = false;
             var r = await J.SyncStock(x);
+        }
+        #endregion
+        #region Iop
+        [TestMethod()]
+        public async Task SellerOrderListRequestTest()
+        {
+            await J.GetAccessTokenAsync();
+            var x = new SellerOrderListRequest() { start_update_time = DateTime.Now.AddDays(-10), end_update_time = DateTime.Now, size = 100, page = 0/*, combine_status = new List<combine_status> { new combine_status { main_status = 16, order_status = 16 } }*/ };
+            var r = await J.GetIopSellerOrderListAsync(x);
         }
         #endregion
     }

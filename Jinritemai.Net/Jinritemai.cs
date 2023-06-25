@@ -36,7 +36,7 @@ namespace Jinritemai.Net
             Url = url;
             this.http = new HttpClient();
         }
-        private HttpClient http;
+        private readonly HttpClient http;
         public string Appkey { get; }
         public string Secret { get; }
         public string Url { get; }
@@ -47,7 +47,7 @@ namespace Jinritemai.Net
         /// <param name="requestbase"></param>
         /// <param name="req"></param>
         /// <returns></returns>
-        private string BuildParam(IRequest req)
+        private static string BuildParam(IRequest req)
         {
             var settings = new JsonSerializerSettings()
             {
@@ -84,7 +84,7 @@ namespace Jinritemai.Net
         }
 
         // 计算hmac
-        private string Hmac(string plainText, string appSecret)
+        private static string Hmac(string plainText, string appSecret)
         {
             var h = new HMACSHA256(Encoding.UTF8.GetBytes(appSecret));
             var sum = h.ComputeHash(Encoding.UTF8.GetBytes(plainText));
@@ -96,23 +96,11 @@ namespace Jinritemai.Net
             }
             return sb.ToString();
         }
-        /// <summary>
-        /// 生成签名
-        /// </summary>
-        /// <param name="requestbase"></param>
-        /// <returns></returns>
-        private void BuildSignMD5(RequestBase requestbase)
-        {
-            requestbase.sign_method = "md5";
-            var h = MD5.Create();
-            var signraw = _BuildSign(requestbase);
-            var result = h.ComputeHash(Encoding.UTF8.GetBytes(signraw));
-            requestbase.sign = BitConverter.ToString(result).Replace("-", "").ToLower();
-        }
+
 
         private string _BuildSign(RequestBase requestbase)
         {
-            var result = $"{Secret}app_key{Appkey}method{requestbase.method}param_json{requestbase.param_json}timestamp{requestbase.timestamp.ToString("yyyy-MM-dd HH:mm:ss")}v{requestbase.v}{Secret}";
+            var result = $"{Secret}app_key{Appkey}method{requestbase.method}param_json{requestbase.param_json}timestamp{requestbase.timestamp:yyyy-MM-dd HH:mm:ss}v{requestbase.v}{Secret}";
             return result;
         }
         /// <summary>
@@ -122,7 +110,11 @@ namespace Jinritemai.Net
         public async Task<Token> GetAccessTokenAsync()
         {
             //var result  = await http.GetStringAsync($"{Url}/oauth2/access_token?app_id={Appkey}&app_secret={Secret}&grant_type=authorization_self");
-            var result = await GetResultNotTokenAsync<Token>(new CreateTokenRequest { grant_type = "authorization_self", shop_id = "7095877",code="" });
+            var result = await GetResultNotTokenAsync<Token>(new CreateTokenRequest { grant_type = "authorization_self", shop_id = "7095877", code = "" });
+            if (result.data is null)
+            {
+                Error(result);
+            }
             AccessToken = result.data;
             AccessToken.expires_date = DateTime.Now.AddSeconds(AccessToken.expires_in);
             return result.data;
@@ -141,7 +133,23 @@ namespace Jinritemai.Net
             reqbase.access_token = AccessToken?.access_token;
             return reqbase;
         }
+
+        private void Error<T>(Result<T> result)
+        {
+            throw new JinritemaiApiException<T>(result);
+        }
+
         public async Task<Result<T>> GetResultAsync<T>(IRequest req)
+        {
+            var ptr = await GetJsonResultAsync(req);
+            return JsonConvert.DeserializeObject<Result<T>>(ptr);
+        }
+        /// <summary>
+        /// 获取json报文
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public async Task<string> GetJsonResultAsync(IRequest req)
         {
             if (AccessToken == null || AccessToken.expires_date < DateTime.Now)
             {
@@ -151,9 +159,9 @@ namespace Jinritemai.Net
             reqbase.param_json = BuildParam(req);
             reqbase.sign = BuildSign(reqbase);
             var content = new StringContent(reqbase.param_json, Encoding.UTF8, "application/json");
-            var presult = await http.PostAsync($"{Url}{req.path}?method={reqbase.method}&app_key={reqbase.app_key}&timestamp={reqbase.timestamp.ToString("yyyy-MM-dd HH:mm:ss")}&v={reqbase.v}&sign={reqbase.sign}&access_token={reqbase.access_token}&sign_method=hmac-sha256", content);
+            var presult = await http.PostAsync($"{Url}{req.path}?method={reqbase.method}&app_key={reqbase.app_key}&timestamp={reqbase.timestamp:yyyy-MM-dd HH:mm:ss}&v={reqbase.v}&sign={reqbase.sign}&access_token={reqbase.access_token}&sign_method=hmac-sha256", content);
             var ptr = await presult.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Result<T>>(ptr);
+            return ptr;
         }
         public async Task<Result<T>> GetResultNotTokenAsync<T>(IRequest req)
         {
@@ -176,7 +184,7 @@ namespace Jinritemai.Net
 
             return String.Join("&", properties.ToArray());
         }
-        private string GetValue(PropertyInfo p,object obj,object[] index)
+        private string GetValue(PropertyInfo p, object obj, object[] index)
         {
             if (p.PropertyType.Equals(typeof(DateTime)))
                 return ((DateTime)p.GetValue(obj, null)).ToString("yyyy-MM-dd HH:mm:ss");
