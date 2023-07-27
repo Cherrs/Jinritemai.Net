@@ -6,10 +6,10 @@
     <Title>Jinritemai.Net</Title>
     <RepositoryUrl>https://github.com/Cherrs/Jinritemai.Net</RepositoryUrl>
     <PackageTags>抖音;DouYin;Jinritemai</PackageTags>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	<Deterministic>false</Deterministic>
-	<PackageProjectUrl>https://github.com/Cherrs/Jinritemai.Net</PackageProjectUrl>
-	<Version>0.0.7</Version>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Deterministic>false</Deterministic>
+    <PackageProjectUrl>https://github.com/Cherrs/Jinritemai.Net</PackageProjectUrl>
+    <Version>0.0.8</Version>
   </PropertyGroup>
 
   <!-- Conditionally obtain references for the .NET Framework 4.6.1 target -->
