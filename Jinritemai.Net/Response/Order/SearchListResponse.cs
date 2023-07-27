@@ -39,6 +39,7 @@ namespace Jinritemai.Net.Order
         public string detail { get; set; }
         public Province province { get; set; }
         public Town town { get; set; }
+        public Street street { get; set; }
         public string encrypt_detail { get; set; }
     }
 
