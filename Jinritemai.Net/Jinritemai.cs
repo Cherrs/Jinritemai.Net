@@ -66,7 +66,7 @@ namespace Jinritemai.Net
         private string BuildSign(RequestBase requestbase)
         {
             var h = new HMACSHA256(Encoding.UTF8.GetBytes(Secret));
-            var strs = _BuildSign(requestbase);
+            var strs = BuildSignStr(requestbase);
             var hashmessage = h.ComputeHash(Encoding.UTF8.GetBytes(strs));
             var x = BitConverter.ToString(hashmessage).Replace("-", "").ToLower();
             return x;
@@ -98,7 +98,7 @@ namespace Jinritemai.Net
         }
 
 
-        private string _BuildSign(RequestBase requestbase)
+        private string BuildSignStr(RequestBase requestbase)
         {
             var result = $"{Secret}app_key{Appkey}method{requestbase.method}param_json{requestbase.param_json}timestamp{requestbase.timestamp:yyyy-MM-dd HH:mm:ss}v{requestbase.v}{Secret}";
             return result;
@@ -134,7 +134,7 @@ namespace Jinritemai.Net
             return reqbase;
         }
 
-        private void Error<T>(Result<T> result)
+        private static void Error<T>(Result<T> result)
         {
             throw new JinritemaiApiException<T>(result);
         }
