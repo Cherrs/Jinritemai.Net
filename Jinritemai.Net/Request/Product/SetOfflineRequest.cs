@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jinritemai.Net.Request.Product
+namespace Jinritemai.Net.Product
 {
-    public class SetOfflineRequest:IRequest
+    public class SetOfflineRequest : IRequest
     {
         public string method { get; set; } = "product.setOffline";
         public string path { get; set; } = "/product/setOffline";

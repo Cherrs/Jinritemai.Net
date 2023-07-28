@@ -2,7 +2,6 @@
 using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
 using Jinritemai.Net.Product;
-using Jinritemai.Net.Request.Product;
 using Jinritemai.Net.Shop;
 using Jinritemai.Net.Sku;
 using Jinritemai.Net.Spu;
@@ -68,6 +67,10 @@ namespace Jinritemai.Net
         public static async Task<Result<UploadImageSyncResponse>> UploadImageSync(this JinritemaiClient client, UploadImageSyncRequest request)
         {
             return await client.GetResultAsync<UploadImageSyncResponse>(request);
+        }
+        public static async Task<Result<QueryMaterialDetailResponse>> QueryMaterialDetail(this JinritemaiClient client, string MaterialId)
+        {
+            return await client.GetResultAsync<QueryMaterialDetailResponse>(new QueryMaterialDetailRequest { material_id = MaterialId });
         }
         #endregion
         #region Sku
