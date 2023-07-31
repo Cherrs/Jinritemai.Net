@@ -188,23 +188,6 @@ namespace Jinritemai.Net.Tests
             x.mobile = "18552830263";
             x.commit = true;
             x.specs = "规格|图书";
-            x.spec_prices = """
-[
-  {
-    "spec_detail_name1": "图书",
-    "spec_detail_name2": "",
-    "spec_detail_name3": "",
-    "stock_num": 1,
-    "price": 10000,
-    "code": "",
-    "step_stock_num": 0,
-    "supplier_id": "",
-    "outer_sku_id": "test",
-    "delivery_infos": []
-  }
-]
-
-""";
             x.product_format_new = result;
             x.supply_7day_return = 2;
             x.standard_brand_id = 596120136;
