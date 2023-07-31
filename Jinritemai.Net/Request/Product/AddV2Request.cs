@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Jinritemai.Net.Product
 {
@@ -56,8 +57,8 @@ namespace Jinritemai.Net.Product
         public string certificate_type { get; set; }
         public List<string> certificate_urls { get; set; }
     }
-    
-    public class AddV2Request:IRequest
+
+    public class AddV2Request : IRequest
     {
         public string method { get; set; } = "product.addV2";
         public string path { get; set; } = "/product/addV2";
@@ -89,7 +90,7 @@ namespace Jinritemai.Net.Product
         public List<QualityList> quality_list { get; set; }
         public string spec_name { get; set; }
         public string specs { get; set; }
-        public string spec_prices { get; set; }
+        public SpecPrices spec_prices { get; set; }
         public string spec_pic { get; set; }
         public string maximum_per_order { get; set; }
         public string limit_per_buyer { get; set; }
@@ -127,5 +128,37 @@ namespace Jinritemai.Net.Product
         public ReferencePriceCertificate reference_price_certificate { get; set; }
     }
 
+    public class SpecPrices
+    {
+        [JsonProperty("spec_detail_name1")]
+        public string SpecDetailName1 { get; set; }
+
+        [JsonProperty("spec_detail_name2")]
+        public string SpecDetailName2 { get; set; }
+
+        [JsonProperty("spec_detail_name3")]
+        public string SpecDetailName3 { get; set; }
+
+        [JsonProperty("stock_num")]
+        public long StockNum { get; set; }
+
+        [JsonProperty("price")]
+        public long Price { get; set; }
+
+        [JsonProperty("code")]
+        public string Code { get; set; }
+
+        [JsonProperty("step_stock_num")]
+        public long StepStockNum { get; set; }
+
+        [JsonProperty("supplier_id")]
+        public string SupplierId { get; set; }
+
+        [JsonProperty("outer_sku_id")]
+        public string OuterSkuId { get; set; }
+
+        [JsonProperty("delivery_infos")]
+        public object[] DeliveryInfos { get; set; }
+    }
 
 }
