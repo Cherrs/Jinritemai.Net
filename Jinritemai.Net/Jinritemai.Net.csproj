@@ -9,7 +9,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Deterministic>false</Deterministic>
     <PackageProjectUrl>https://github.com/Cherrs/Jinritemai.Net</PackageProjectUrl>
-    <Version>0.0.11</Version>
+    <Version>0.0.12</Version>
   </PropertyGroup>
 
   <!-- Conditionally obtain references for the .NET Framework 4.6.1 target -->

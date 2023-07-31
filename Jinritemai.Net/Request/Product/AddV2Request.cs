@@ -90,7 +90,7 @@ namespace Jinritemai.Net.Product
         public List<QualityList> quality_list { get; set; }
         public string spec_name { get; set; }
         public string specs { get; set; }
-        public SpecPrices spec_prices { get; set; }
+        public List<SpecPrices> spec_prices { get; set; }
         public string spec_pic { get; set; }
         public string maximum_per_order { get; set; }
         public string limit_per_buyer { get; set; }
