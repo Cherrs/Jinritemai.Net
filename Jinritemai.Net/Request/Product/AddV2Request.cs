@@ -90,7 +90,8 @@ namespace Jinritemai.Net.Product
         public List<QualityList> quality_list { get; set; }
         public string spec_name { get; set; }
         public string specs { get; set; }
-        public List<SpecPrices> spec_prices { get; set; }
+        public string spec_prices { get; set; }
+        public List<SpecPrices> spec_prices_sku { get; set; }
         public string spec_pic { get; set; }
         public string maximum_per_order { get; set; }
         public string limit_per_buyer { get; set; }
@@ -126,39 +127,30 @@ namespace Jinritemai.Net.Product
         public string name_prefix { get; set; }
         public string reference_price { get; set; }
         public ReferencePriceCertificate reference_price_certificate { get; set; }
+        public string after_sale_service{ get; set; }
     }
 
     public class SpecPrices
     {
-        [JsonProperty("spec_detail_name1")]
-        public string SpecDetailName1 { get; set; }
+        public string spec_detail_name1 { get; set; }
 
-        [JsonProperty("spec_detail_name2")]
-        public string SpecDetailName2 { get; set; }
+        public string spec_detail_name2 { get; set; }
 
-        [JsonProperty("spec_detail_name3")]
-        public string SpecDetailName3 { get; set; }
+        public string spec_detail_name3 { get; set; }
 
-        [JsonProperty("stock_num")]
-        public long StockNum { get; set; }
+        public long stock_num { get; set; }
 
-        [JsonProperty("price")]
-        public long Price { get; set; }
+        public long price { get; set; }
 
-        [JsonProperty("code")]
-        public string Code { get; set; }
+        public string code { get; set; }
 
-        [JsonProperty("step_stock_num")]
-        public long StepStockNum { get; set; }
+        public long step_stock_num { get; set; }
 
-        [JsonProperty("supplier_id")]
-        public string SupplierId { get; set; }
+        public string supplier_id { get; set; }
 
-        [JsonProperty("outer_sku_id")]
-        public string OuterSkuId { get; set; }
+        public string outer_sku_id { get; set; }
 
-        [JsonProperty("delivery_infos")]
-        public object[] DeliveryInfos { get; set; }
+        public object[] delivery_infos { get; set; }
     }
 
 }
