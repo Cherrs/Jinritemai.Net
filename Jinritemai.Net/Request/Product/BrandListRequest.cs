@@ -11,12 +11,12 @@ namespace Jinritemai.Net.Product
         public string method { get; set; } = "product.detail";
         public string path { get; set; } = "/brand/list";
         public List<int> categories { get; set; }
-        public string offset { get; set; }
-        public string size { get; set; }
-        public string sort { get; set; }
+        public int offset { get; set; }
+        public long size { get; set; }
+        public int sort { get; set; }
         public string status { get; set; }
         public string full_brand_info { get; set; }
-        public string category_id { get; set; }
+        public long category_id { get; set; }
         public string query { get; set; }
         public List<int> brand_ids { get; set; }
     }
