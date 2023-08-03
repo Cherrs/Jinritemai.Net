@@ -46,6 +46,10 @@ namespace Jinritemai.Net
         #endregion
 
         #region Product
+        public static async Task<Result<BrandListResponse>> BrandList(this JinritemaiClient client, BrandListRequest request)
+        {
+            return await client.GetResultAsync<BrandListResponse>(request);
+        }
         public static async Task<Result<AddV2Response>> AddV2(this JinritemaiClient client, AddV2Request request)
         {
             return await client.GetResultAsync<AddV2Response>(request);
