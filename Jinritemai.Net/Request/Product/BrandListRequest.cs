@@ -8,7 +8,7 @@ namespace Jinritemai.Net.Product
 {
     public class BrandListRequest : IRequest
     {
-        public string method { get; set; } = "product.detail";
+        public string method { get; set; } = "brand.list";
         public string path { get; set; } = "/brand/list";
         public List<int> categories { get; set; }
         public int offset { get; set; }
