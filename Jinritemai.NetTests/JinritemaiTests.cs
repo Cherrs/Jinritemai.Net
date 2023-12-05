@@ -1,5 +1,5 @@
 ﻿using Jinritemai.Net;
-using Jinritemai.Net.Iop.Order;
+using Jinritemai.Net.Iop;
 using Jinritemai.Net.Logistics;
 using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
