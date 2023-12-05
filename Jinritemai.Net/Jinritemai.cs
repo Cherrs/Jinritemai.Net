@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Web;
+using Jinritemai.Net.Logistics;
 
 namespace Jinritemai.Net
 {
@@ -177,6 +178,15 @@ namespace Jinritemai.Net
         {
             return await GetResultAsync<NullValue>(req);
         }
+
+        public string GetPrintParams()
+        {
+            var req = new GetShopKeyRequest();
+            var reqbase = BuildRequest(req);
+            reqbase.sign = BuildSign(reqbase);
+            return $"method={reqbase.method}&app_key={reqbase.app_key}&timestamp={reqbase.timestamp:yyyy-MM-dd HH:mm:ss}&v={reqbase.v}&sign={reqbase.sign}&access_token={reqbase.access_token}&sign_method=hmac-sha256&param_json={{}}";
+        }
+
         public string GetQueryString(object obj)
         {
 
