@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Jinritemai.Net.Iop.Order
+namespace Jinritemai.Net.Iop
 {
     public class SellerOrderListRequest : IRequest
     {

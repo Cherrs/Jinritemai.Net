@@ -1,13 +1,13 @@
-﻿using Jinritemai.Net.Iop.Order;
+﻿using Jinritemai.Net.Iop;
 using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
 using Jinritemai.Net.Product;
 using Jinritemai.Net.Shop;
 using Jinritemai.Net.Sku;
 using Jinritemai.Net.Spu;
-using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Jinritemai.Net
@@ -25,6 +25,21 @@ namespace Jinritemai.Net
         public static async Task<Result<BatchDecryptResponse>> BatchDecrypt(this JinritemaiClient client, BatchDecryptRequest request)
         {
             return await client.GetResultAsync<BatchDecryptResponse>(request);
+        }
+        /// <summary>
+        /// 适配云内调用，自用
+        /// </summary>
+        /// <param name="client"></param>
+        /// <param name="request"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static async Task<Result<BatchDecryptResponse>> BatchDecrypt(this JinritemaiClient client, BatchDecryptRequest request, string url)
+        {
+            var content = new StringContent(JsonConvert.SerializeObject(request));
+            content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+            var result = await client.http.PostAsync($"{url}/orders/BatchDecrypt", content);
+            var result_str = await result.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<Result<BatchDecryptResponse>>(result_str);
         }
         public static async Task<Result<List<GetShopCategoryResponse>>> GetShopCategory(this JinritemaiClient client, GetShopCategoryRequest request)
         {

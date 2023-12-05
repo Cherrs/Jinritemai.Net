@@ -36,7 +36,7 @@ namespace Jinritemai.Net
             Url = url;
             this.http = new HttpClient();
         }
-        private readonly HttpClient http;
+        internal readonly HttpClient http;
         public string Appkey { get; }
         public string Secret { get; }
         public string Url { get; }
