@@ -1,5 +1,5 @@
 ﻿using Jinritemai.Net;
-using Jinritemai.Net.Iop.Order;
+using Jinritemai.Net.Iop;
 using Jinritemai.Net.Logistics;
 using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
@@ -80,6 +80,32 @@ namespace Jinritemai.Net.Tests
         }
 
         [TestMethod()]
+        public async Task OrderListRequest()
+        {
+            var x = new OrderListRequest()
+            {
+                StartUpdateTime = DateTime.Now.AddMinutes(-20),
+                EndUpdateTime = DateTime.Now,
+                Size = 100,
+                Page = 0,
+                DistrStatus = 1
+            };
+            var rsp = await J.GetResultAsync<OrderListResponse>(x);
+        }
+
+        [TestMethod()]
+        public async Task GetSellerListRequest()
+        {
+            var x = new GetSellerListRequest()
+            {
+                BindStatus = [1, 2],
+                Page = 0,
+                PageSize = 100
+            };
+            var rsp = await J.GetResultAsync<GetSellerListResponse>(x);
+        }
+
+        [TestMethod()]
         public async Task QueryBookNameByISBN()
         {
             var x = new QueryBookNameByISBNRequest();
@@ -135,6 +161,80 @@ namespace Jinritemai.Net.Tests
         #region Logistics
 
         [TestMethod()]
+        public async Task GetShopKeyRequestTest()
+        {
+            var x = new GetShopKeyRequest();
+            var result = await J.GetResultAsync(x);
+        }
+
+
+        [TestMethod("获取面单")]
+        public async Task NewCreateOrderRequestTest()
+        {
+            var x = new NewCreateOrderRequest();
+            x.LogisticsCode = "youzhengguonei";
+            x.SenderInfo = new SenderInfo
+            {
+                Address = new PodModelAddressClass
+                {
+                    CityName = "南京市",
+                    DetailAddress = "仙新路98号",
+                    CountryCode = "CHN",
+                    ProvinceName = "江苏省",
+                    DistrictName = "栖霞区",
+                    StreetName = "栖霞经济开发区"
+                },
+                Contact = new Contact
+                {
+                    Mobile = "025-85588100",
+                    Name = "菲尼克斯图书专营店"
+                },
+
+            };
+            x.OrderInfos = new List<OrderInfo> {
+                new OrderInfo{
+                    OrderId = "6924060199989483023",
+                    ReceiverInfo = new ReceiverInfo{
+                     Address = new ReceiverInfoAddress{
+                        ProvinceName = "河北省",
+                        CityName = "唐山市",
+                        DistrictName = "滦州市",
+                        DetailAddress = "滦城路街道滦河西道龙山帝景小区"
+                     },
+                     Contact = new Contact{
+                        Name="张媛媛",
+                        Mobile = "13521793341"
+                     }
+                    },
+                    Items = new List<Item>{
+                        new Item{
+                            ItemName = "shu",
+                            ItemCount =1,
+                            ItemWeight=100,
+                            ItemNetWeight = 100
+                        }
+                     },
+                     NetInfo = new NetInfo{
+                        Category = "直营",
+                        MonthlyAccount = "1100094331158"
+                     }
+                }
+            };
+
+            var r = await J.GetResultAsync<NewCreateOrderRequest>(x);
+        }
+
+        [TestMethod("抖音获取标准模板")]
+        public async Task TemplateListRequestTest()
+        {
+            var x = new TemplateListRequest();
+
+            var r = await J.GetResultAsync<TemplateListResponse>(x);
+
+        }
+
+
+        [TestMethod()]
         public async Task OrderLogisticsCompanyListRequestTest()
         {
             var x = new OrderLogisticsCompanyListRequest();
@@ -159,7 +259,6 @@ namespace Jinritemai.Net.Tests
         #endregion Logistics
 
         #region Product
-
         [TestMethod()]
         public async Task QualificationConfig()
         {
