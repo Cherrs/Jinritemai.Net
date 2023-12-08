@@ -29,7 +29,7 @@ namespace Jinritemai.Net
         /// 时间格式，格式要求为yyyy-MM-dd HH:mm:ss，时区为GMT+8，例如：2016-01-01 12:00:00
         /// </summary>
         [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
-        public DateTime timestamp { get; set; } = DateTime.Now;
+        public DateTimeOffset timestamp { get; set; } = DateTimeOffset.Now;
         /// <summary>
         /// API协议版本，当前版本为2
         /// </summary>
