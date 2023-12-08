@@ -76,6 +76,7 @@ namespace Jinritemai.Net.Tests
         [TestMethod()]
         public void ggga()
         {
+            var rsp = J.GetResultAsync<TemplateListResponse>(new TemplateListRequest { }).Result;
             var p = J.GetPrintParams();
         }
 

@@ -101,8 +101,7 @@ namespace Jinritemai.Net
 
         private string BuildSignStr(RequestBase requestbase)
         {
-            var result = $"{Secret}app_key{Appkey}method{requestbase.method}param_json{requestbase.param_json}timestamp{requestbase.timestamp:yyyy-MM-dd HH:mm:ss}v{requestbase.v}{Secret}";
-            return result;
+            return $"{Secret}app_key{Appkey}method{requestbase.method}param_json{requestbase.param_json}timestamp{requestbase.timestamp.ToUnixTimeSeconds()}v{requestbase.v}{Secret}";
         }
         /// <summary>
         /// 获取Token
@@ -160,7 +159,7 @@ namespace Jinritemai.Net
             reqbase.param_json = BuildParam(req);
             reqbase.sign = BuildSign(reqbase);
             var content = new StringContent(reqbase.param_json, Encoding.UTF8, "application/json");
-            var presult = await http.PostAsync($"{Url}{req.path}?method={reqbase.method}&app_key={reqbase.app_key}&timestamp={reqbase.timestamp:yyyy-MM-dd HH:mm:ss}&v={reqbase.v}&sign={reqbase.sign}&access_token={reqbase.access_token}&sign_method=hmac-sha256", content);
+            var presult = await http.PostAsync(BuildUrl(req, reqbase), content);
             var ptr = await presult.Content.ReadAsStringAsync();
             return ptr;
         }
@@ -170,7 +169,7 @@ namespace Jinritemai.Net
             reqbase.param_json = BuildParam(req);
             reqbase.sign = BuildSign(reqbase);
             var content = new StringContent(reqbase.param_json, Encoding.UTF8, "application/json");
-            var presult = await http.PostAsync($"{Url}{req.path}?method={reqbase.method}&app_key={reqbase.app_key}&timestamp={reqbase.timestamp.ToString("yyyy-MM-dd HH:mm:ss")}&v={reqbase.v}&sign={reqbase.sign}&access_token={reqbase.access_token}&sign_method=hmac-sha256", content);
+            var presult = await http.PostAsync(BuildUrl(req, reqbase), content);
             var ptr = await presult.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<Result<T>>(ptr);
         }
@@ -183,10 +182,14 @@ namespace Jinritemai.Net
         {
             var req = new GetShopKeyRequest();
             var reqbase = BuildRequest(req);
+            reqbase.param_json = BuildParam(req);
             reqbase.sign = BuildSign(reqbase);
-            return $"method={reqbase.method}&app_key={reqbase.app_key}&timestamp={reqbase.timestamp:yyyy-MM-dd HH:mm:ss}&v={reqbase.v}&sign={reqbase.sign}&access_token={reqbase.access_token}&sign_method=hmac-sha256&param_json={{}}";
+            return $"access_token={reqbase.access_token}&app_key={reqbase.app_key}&method={reqbase.method}&param_json={{}}&timestamp={reqbase.timestamp.ToUnixTimeSeconds()}&v={reqbase.v}&sign={reqbase.sign}&sign_method=hmac-sha256";
         }
-
+        private string BuildUrl(IRequest req, RequestBase reqbase)
+        {
+            return $"{Url}{req.path}?method={reqbase.method}&app_key={reqbase.app_key}&timestamp={reqbase.timestamp.ToUnixTimeSeconds()}&v={reqbase.v}&sign={reqbase.sign}&access_token={reqbase.access_token}&sign_method=hmac-sha256";
+        }
         public string GetQueryString(object obj)
         {
 
