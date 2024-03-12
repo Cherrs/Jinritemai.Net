@@ -173,7 +173,7 @@ namespace Jinritemai.Net.Tests
         public async Task NewCreateOrderRequestTest()
         {
             var x = new NewCreateOrderRequest();
-            x.LogisticsCode = "youzhengguonei";
+            x.LogisticsCode = "zhongtong";
             x.SenderInfo = new SenderInfo
             {
                 Address = new PodModelAddressClass
@@ -194,17 +194,17 @@ namespace Jinritemai.Net.Tests
             };
             x.OrderInfos = new List<OrderInfo> {
                 new OrderInfo{
-                    OrderId = "6924060199989483023",
+                    OrderId = "6925146951201854829",
                     ReceiverInfo = new ReceiverInfo{
                      Address = new ReceiverInfoAddress{
-                        ProvinceName = "河北省",
-                        CityName = "唐山市",
-                        DistrictName = "滦州市",
-                        DetailAddress = "滦城路街道滦河西道龙山帝景小区"
+                        ProvinceName = "江苏省",
+                        CityName = "苏州市",
+                        DistrictName = "昆山市",
+                        DetailAddress = "#O8LcGiXJXSH5L7u9dmNCiyxcoVjTvVt/NQlc6JNlZEgrf/ekgTKnKWq9i/LcMANZ#0LCSQZMd+c9yhEZ9+ZVzCA3KzbQoRzyhG47jhl/LIAmkAFImhSggBHjEkYFlrfm4XI/ECw/2Z6+YtbtHB7f9P1NE+UgJpZbM3p8ZQl6qviYW7UBXqPxOT/OGqUiQX6kOYoSXWwm4br6Ozq0c3A==*CgYIASAHKAESPgo8DqAIDUXPdD6QpkaDmkbCRClYaaZ4n8s8mrBk35rMZbBvgE3NafmUiHEJ3eHwk/LYVxOxhPr6a3IyUsSoGgA=#1##"
                      },
                      Contact = new Contact{
-                        Name="张媛媛",
-                        Mobile = "13521793341"
+                        Name="#J6qA#5iI8DsuFaqbPcZxlqH5kkHm79pFOlhe8AouEwcvDv6IVj6CGunsZRzR+hJS0jNhenSBhfabTXsFq3NtzZWpVvxlqmnhtTSNV8yGQLQ==*CgYIASAHKAESPgo8BVlgRAAXsKqQGM4y0tMzRHa/sMXPlcKMb1fbUmB9lF0KuN0/bBL1mKTC2lnvmcz/I3HQw2QFV+NZ9y7AGgA=#1##",
+                        Mobile = "$RPaxMtUURQ429umTpyYIYh+w2zIQsgxOgV+yHhA/Z5s=$OfU3P7ex95RwcF/MVvF66kRh+trCnlba0JQGJHlgGh/B+rVRGvyt1wNyiDGHdJvlxStlDJnJeHZBQoY6r1104RUXpMWfvWnB341IYZwPHxbU*CgYIASAHKAESPgo8Zc6sQD+Lq7yMm6Ox3RJOk//wUwvh/+M61SQ6WVg3MeRW89N96DOKE3r6RbBs7ztoBF6hg2gvCAMU+w8qGgA=$1$$"
                      }
                     },
                     Items = new List<Item>{
@@ -222,7 +222,11 @@ namespace Jinritemai.Net.Tests
                 }
             };
 
-            var r = await J.GetResultAsync<NewCreateOrderRequest>(x);
+            var r = await J.GetResultAsync<NewCreateOrderResponse>(x);
+
+            var w = new WaybillApplyRequest() { waybill_applies = r.data.EbillInfos.Select(x => new WaybillApplies { logistics_code = "youzhengguonei", track_no = x.TrackNo }).ToList() };
+            var res_r = await J.GetResultAsync<WaybillApplyResponse>(w);
+
         }
 
         [TestMethod("抖音获取标准模板")]

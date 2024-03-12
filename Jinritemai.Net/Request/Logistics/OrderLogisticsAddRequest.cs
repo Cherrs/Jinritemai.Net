@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Jinritemai.Net.Logistics
 {
-    public class OrderLogisticsAddRequest:IRequest
+    public class OrderLogisticsAddRequest : IRequest
     {
         /// <summary>
         /// 订单ID需要带大写A

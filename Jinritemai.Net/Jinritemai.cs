@@ -38,6 +38,7 @@ namespace Jinritemai.Net
             this.http = new HttpClient();
         }
         internal readonly HttpClient http;
+        public string ShopID { get; set; } = "7095877";
         public string Appkey { get; }
         public string Secret { get; }
         public string Url { get; }
@@ -110,7 +111,7 @@ namespace Jinritemai.Net
         public async Task<Token> GetAccessTokenAsync()
         {
             //var result  = await http.GetStringAsync($"{Url}/oauth2/access_token?app_id={Appkey}&app_secret={Secret}&grant_type=authorization_self");
-            var result = await GetResultNotTokenAsync<Token>(new CreateTokenRequest { grant_type = "authorization_self", shop_id = "7095877", code = "" });
+            var result = await GetResultNotTokenAsync<Token>(new CreateTokenRequest { grant_type = "authorization_self", shop_id = ShopID, code = "" });
             if (result.data is null)
             {
                 Error(result);
@@ -142,7 +143,9 @@ namespace Jinritemai.Net
         public async Task<Result<T>> GetResultAsync<T>(IRequest req)
         {
             var ptr = await GetJsonResultAsync(req);
-            return JsonConvert.DeserializeObject<Result<T>>(ptr);
+            var result = JsonConvert.DeserializeObject<Result<T>>(ptr);
+            result.raw_body = ptr;
+            return result;
         }
         /// <summary>
         /// 获取json报文
@@ -171,7 +174,9 @@ namespace Jinritemai.Net
             var content = new StringContent(reqbase.param_json, Encoding.UTF8, "application/json");
             var presult = await http.PostAsync(BuildUrl(req, reqbase), content);
             var ptr = await presult.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<Result<T>>(ptr);
+            var result = JsonConvert.DeserializeObject<Result<T>>(ptr);
+            result.raw_body = ptr;
+            return result;
         }
         public async Task<Result<NullValue>> GetResultAsync(IRequest req)
         {

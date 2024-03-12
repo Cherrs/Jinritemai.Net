@@ -45,5 +45,7 @@ namespace Jinritemai.Net
         public string msg { get; set; }
         public string sub_msg { get; set; }
         public string sub_code { get; set; }
+
+        public string raw_body { get; set; }
     }
 }

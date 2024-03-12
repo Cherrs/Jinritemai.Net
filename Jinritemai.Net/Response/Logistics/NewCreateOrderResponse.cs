@@ -22,7 +22,7 @@ namespace Jinritemai.Net.Logistics
 
         [JsonProperty("extra_resp")]
 
-        public long ExtraResp { get; set; }
+        public string ExtraResp { get; set; }
 
         [JsonProperty("hint_msg")]
         public string HintMsg { get; set; }
@@ -32,31 +32,31 @@ namespace Jinritemai.Net.Logistics
 
         [JsonProperty("order_id")]
 
-        public long OrderId { get; set; }
+        public string OrderId { get; set; }
 
         [JsonProperty("pack_id")]
 
-        public long PackId { get; set; }
+        public string PackId { get; set; }
 
         [JsonProperty("package_center_code")]
 
-        public long PackageCenterCode { get; set; }
+        public string PackageCenterCode { get; set; }
 
         [JsonProperty("package_center_name")]
 
-        public long PackageCenterName { get; set; }
+        public string PackageCenterName { get; set; }
 
         [JsonProperty("shipping_code")]
 
-        public long ShippingCode { get; set; }
+        public string ShippingCode { get; set; }
 
         [JsonProperty("short_address_code")]
 
-        public long ShortAddressCode { get; set; }
+        public string ShortAddressCode { get; set; }
 
         [JsonProperty("short_address_name")]
 
-        public long ShortAddressName { get; set; }
+        public string ShortAddressName { get; set; }
 
         [JsonProperty("sort_code")]
         public string SortCode { get; set; }
@@ -66,7 +66,7 @@ namespace Jinritemai.Net.Logistics
 
         [JsonProperty("track_no")]
 
-        public long TrackNo { get; set; }
+        public string TrackNo { get; set; }
     }
 
     public partial class ErrInfo
@@ -80,14 +80,14 @@ namespace Jinritemai.Net.Logistics
 
         [JsonProperty("order_channel")]
 
-        public long OrderChannel { get; set; }
+        public string OrderChannel { get; set; }
 
         [JsonProperty("order_id")]
 
-        public long OrderId { get; set; }
+        public string OrderId { get; set; }
 
         [JsonProperty("pack_id")]
 
-        public long PackId { get; set; }
+        public string PackId { get; set; }
     }
 }
