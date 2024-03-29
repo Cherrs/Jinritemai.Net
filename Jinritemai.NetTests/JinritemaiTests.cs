@@ -144,8 +144,9 @@ namespace Jinritemai.Net.Tests
         [TestMethod()]
         public async Task OrderDetailTest()
         {
+            J.ShopID = "1530314";
             await J.GetAccessTokenAsync();
-            var x = new OrderDetailRequest() { shop_order_id = "4874151216487663149" };
+            var x = new OrderDetailRequest() { shop_order_id = "6928276799244211240" };
             var r = await J.GetOrderDetailAsync(x);
         }
 

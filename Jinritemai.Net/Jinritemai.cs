@@ -15,6 +15,30 @@ namespace Jinritemai.Net
 {
     public class JinritemaiClient
     {
+        public JinritemaiClient(string appkey, string secret, string url, string shopid)
+        {
+            if (string.IsNullOrWhiteSpace(appkey))
+            {
+                throw new ArgumentException($"“{nameof(appkey)}”不能为 null 或空白。", nameof(appkey));
+            }
+
+            if (string.IsNullOrWhiteSpace(secret))
+            {
+                throw new ArgumentException($"“{nameof(secret)}”不能为 null 或空白。", nameof(secret));
+            }
+
+            if (string.IsNullOrWhiteSpace(url))
+            {
+                throw new ArgumentException($"“{nameof(url)}”不能为 null 或空白。", nameof(url));
+            }
+
+            Appkey = appkey;
+            Secret = secret;
+            Url = url;
+            ShopID = shopid;
+            this.http = new HttpClient();
+        }
+
         public JinritemaiClient(string appkey, string secret, string url)
         {
             if (string.IsNullOrWhiteSpace(appkey))
@@ -35,14 +59,15 @@ namespace Jinritemai.Net
             Appkey = appkey;
             Secret = secret;
             Url = url;
+            ShopID = "";
             this.http = new HttpClient();
         }
         internal readonly HttpClient http;
-        public string ShopID { get; set; } = "7095877";
+        public string ShopID { get; set; }
         public string Appkey { get; }
         public string Secret { get; }
         public string Url { get; }
-        public static Token AccessToken { get; set; }
+        public static Dictionary<string, Token> AccessToken { get; set; } = new Dictionary<string, Token>();
         /// <summary>
         /// 生成请求参数
         /// </summary>
@@ -116,8 +141,8 @@ namespace Jinritemai.Net
             {
                 Error(result);
             }
-            AccessToken = result.data;
-            AccessToken.expires_date = DateTime.Now.AddSeconds(AccessToken.expires_in);
+            AccessToken[ShopID] = result.data;
+            AccessToken[ShopID].expires_date = DateTime.Now.AddSeconds(AccessToken[ShopID].expires_in);
             return result.data;
         }
         /// <summary>
@@ -131,7 +156,10 @@ namespace Jinritemai.Net
             reqbase.method = req.method;
             reqbase.path = req.path;
             reqbase.app_key = Appkey;
-            reqbase.access_token = AccessToken?.access_token;
+            if (AccessToken.TryGetValue(ShopID, out var token))
+            {
+                reqbase.access_token = token.access_token;
+            }
             return reqbase;
         }
 
@@ -154,7 +182,7 @@ namespace Jinritemai.Net
         /// <returns></returns>
         public async Task<string> GetJsonResultAsync(IRequest req)
         {
-            if (AccessToken == null || AccessToken.expires_date < DateTime.Now)
+            if (AccessToken == null || !AccessToken.Any(x => x.Key == ShopID) || AccessToken[ShopID].expires_date < DateTime.Now)
             {
                 await GetAccessTokenAsync();
             }
