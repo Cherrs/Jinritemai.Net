@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net7.0;net6.0;net461;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net7.0;net6.0;net461;netstandard2.0;netstandard2.1</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>Jinritemai.Net</Title>
     <RepositoryUrl>https://github.com/Cherrs/Jinritemai.Net</RepositoryUrl>
@@ -9,7 +9,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Deterministic>false</Deterministic>
     <PackageProjectUrl>https://github.com/Cherrs/Jinritemai.Net</PackageProjectUrl>
-    <Version>0.0.22</Version>
+    <Version>0.0.23</Version>
   </PropertyGroup>
 
   <!-- Conditionally obtain references for the .NET Framework 4.6.1 target -->
