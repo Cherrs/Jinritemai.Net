@@ -97,6 +97,10 @@ namespace Jinritemai.Net
         {
             return await client.GetResultAsync<object>(request);
         }
+        public static async Task<Result<object>> SkuEditPrice(this JinritemaiClient client, EditPriceRequest request)
+        {
+            return await client.GetResultAsync<object>(request);
+        }
         #endregion
 
         #region Iop
