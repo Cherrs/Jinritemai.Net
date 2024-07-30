@@ -30,7 +30,7 @@ namespace Jinritemai.Net.Tests
         public JinritemaiTests()
         {
             config = new ConfigurationBuilder().AddJsonFile("my-config.json").Build();
-            J = new JinritemaiClient(config["appkey"], config["secret"], config["url"]);
+            J = new JinritemaiClient(config["appkey"], config["secret"], config["url"], config["shopid"]);
         }
 
         [TestMethod()]
@@ -136,7 +136,7 @@ namespace Jinritemai.Net.Tests
         [TestMethod()]
         public async Task SearchListRequestTest()
         {
-            await J.GetAccessTokenAsync();
+            // await J.GetAccessTokenAsync();
             var x = new SearchListRequest() { update_time_start = DateTime.Now.AddHours(-24), update_time_end = DateTime.Now, size = 100, page = 0/*, combine_status = new List<combine_status> { new combine_status { main_status = 16, order_status = 16 } }*/ };
             var r = await J.GetResultAsync<SearchListResponse>(x);
         }
@@ -144,9 +144,9 @@ namespace Jinritemai.Net.Tests
         [TestMethod()]
         public async Task OrderDetailTest()
         {
-            J.ShopID = "1530314";
+            J.ShopID = "7095877";
             await J.GetAccessTokenAsync();
-            var x = new OrderDetailRequest() { shop_order_id = "6928276799244211240" };
+            var x = new OrderDetailRequest() { shop_order_id = "6931667723982804759" };
             var r = await J.GetOrderDetailAsync(x);
         }
 
