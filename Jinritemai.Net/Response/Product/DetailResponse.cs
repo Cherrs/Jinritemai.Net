@@ -36,18 +36,19 @@ namespace Jinritemai.Net.Product
 
     public class DetailResponse
     {
-        public object account_template_id { get; set; }
+        public long spu_id { get; set; }
+        public string account_template_id { get; set; }
         public string after_sale_service { get; set; }
         public long appolong_delivery_day { get; set; }
-        public object brand_id { get; set; }
-        public object car_vin_code { get; set; }
+        public long brand_id { get; set; }
+        public string car_vin_code { get; set; }
         public CategoryDetail category_detail { get; set; }
-        public object cdf_category { get; set; }
+        public string cdf_category { get; set; }
         public long check_status { get; set; }
         public string create_time { get; set; }
         public DelayRule delay_rule { get; set; }
         public long delivery_delay_day { get; set; }
-        public object delivery_method { get; set; }
+        public long delivery_method { get; set; }
         public string description { get; set; }
         public long discount_price { get; set; }
         public long draft_status { get; set; }
@@ -58,15 +59,15 @@ namespace Jinritemai.Net.Product
         public bool is_sub_product { get; set; }
         public long limit_per_buyer { get; set; }
         public LogisticsInfo logistics_info { get; set; }
-        public object long_pic_url { get; set; }
-        public object main_product_id { get; set; }
+        public string long_pic_url { get; set; }
+        public long main_product_id { get; set; }
         public long market_price { get; set; }
-        public object material_video_id { get; set; }
+        public string material_video_id { get; set; }
         public long maximum_per_order { get; set; }
         public long minimum_per_order { get; set; }
         public string mobile { get; set; }
         public string name { get; set; }
-        public object name_prefix { get; set; }
+        public string name_prefix { get; set; }
         public bool need_recharge_mode { get; set; }
         public long open_user_id { get; set; }
         public long out_product_id { get; set; }
@@ -74,7 +75,7 @@ namespace Jinritemai.Net.Product
         public long pay_type { get; set; }
         public List<string> pic { get; set; }
         public string pickup_method { get; set; }
-        public object presell_config_level { get; set; }
+        public long presell_config_level { get; set; }
         public long presell_delay { get; set; }
         public long presell_type { get; set; }
         public long price_has_tax { get; set; }
@@ -84,8 +85,8 @@ namespace Jinritemai.Net.Product
         public string product_id_str { get; set; }
         public List<object> quality_list { get; set; }
         public string recommend_remark { get; set; }
-        public object sale_channel_type { get; set; }
-        public object sale_limit_id { get; set; }
+        public string sale_channel_type { get; set; }
+        public string sale_limit_id { get; set; }
         public List<long> sell_channel { get; set; }
         public object size_info_template_id { get; set; }
         public long spec_id { get; set; }
