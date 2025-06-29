@@ -48,7 +48,7 @@ namespace Jinritemai.Net.Product
         public string create_time { get; set; }
         public DelayRule delay_rule { get; set; }
         public long delivery_delay_day { get; set; }
-        public long delivery_method { get; set; }
+        public long? delivery_method { get; set; }
         public string description { get; set; }
         public long discount_price { get; set; }
         public long draft_status { get; set; }
@@ -60,7 +60,7 @@ namespace Jinritemai.Net.Product
         public long limit_per_buyer { get; set; }
         public LogisticsInfo logistics_info { get; set; }
         public string long_pic_url { get; set; }
-        public long main_product_id { get; set; }
+        public long? main_product_id { get; set; }
         public long market_price { get; set; }
         public string material_video_id { get; set; }
         public long maximum_per_order { get; set; }
@@ -75,7 +75,7 @@ namespace Jinritemai.Net.Product
         public long pay_type { get; set; }
         public List<string> pic { get; set; }
         public string pickup_method { get; set; }
-        public long presell_config_level { get; set; }
+        public long? presell_config_level { get; set; }
         public long presell_delay { get; set; }
         public long presell_type { get; set; }
         public long price_has_tax { get; set; }
