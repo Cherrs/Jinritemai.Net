@@ -1,4 +1,5 @@
-﻿using Jinritemai.Net.Iop;
+﻿using Jinritemai.Net.Alliance;
+using Jinritemai.Net.Iop;
 using Jinritemai.Net.Material;
 using Jinritemai.Net.Order;
 using Jinritemai.Net.Product;
@@ -26,6 +27,7 @@ namespace Jinritemai.Net
         {
             return await client.GetResultAsync<BatchDecryptResponse>(request);
         }
+
         /// <summary>
         /// 适配云内调用，自用
         /// </summary>
@@ -107,6 +109,13 @@ namespace Jinritemai.Net
         public static async Task<string> GetIopSellerOrderListAsync(this JinritemaiClient client, SellerOrderListRequest request)
         {
             return await client.GetJsonResultAsync(request);
+        }
+        #endregion
+
+        #region Alliance
+        public static async Task<Result<GetOrderListResponse>> GetOrderList(this JinritemaiClient client, GetOrderListRequest request)
+        {
+            return await client.GetResultAsync<GetOrderListResponse>(request);
         }
         #endregion
     }
